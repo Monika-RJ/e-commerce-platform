@@ -1,43 +1,55 @@
 // src/context/CartContext.js
 import React, { createContext, useContext, useState } from 'react';
+import axios from 'axios';
 
 const CartContext = createContext();
+
+export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (product) => {
-    setCartItems(prevItems => {
-      // Check if the item already exists in the cart
-      const existingItem = prevItems.find(item => item._id === product._id);
-      if (existingItem) {
-        // If it exists, update the quantity
-        return prevItems.map(item =>
-          item._id === product._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      // If it doesn't exist, add it with quantity 1
-      return [...prevItems, { ...product, quantity: 1 }];
-    });
+  const fetchCartItems = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await axios.get('http://localhost:5000/api/cart', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCartItems(res.data.cartItems);
+    } catch (err) {
+      console.error('Failed to fetch cart items:', err);
+    }
   };
 
-  const removeFromCart = (id) => {
-    setCartItems(prevItems => prevItems.filter(item => item._id !== id));
+  const addToCart = async (productId, quantity = 1) => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/api/cart',
+        { productId, quantity },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setCartItems(res.data.cartItems); // Update cart with new items
+    } catch (err) {
+      console.error('Failed to add item to cart:', err);
+    }
   };
 
-  const getCartItems = () => cartItems;
-
-  const getTotalAmount = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const removeFromCart = async (productId) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.delete(`http://localhost:5000/api/cart/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchCartItems();
+    } catch (err) {
+      console.error('Failed to remove item from cart:', err);
+    }
   };
 
   return (
-    <CartContext.Provider value={{ addToCart, removeFromCart, getCartItems, getTotalAmount }}>
+    <CartContext.Provider value={{ cartItems, fetchCartItems, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
 };
-
-export const useCart = () => useContext(CartContext);

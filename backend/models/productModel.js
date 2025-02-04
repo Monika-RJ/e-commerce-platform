@@ -1,3 +1,4 @@
+// models/Product.js
 const mongoose = require('mongoose');
 
 const productSchema = mongoose.Schema(
@@ -39,11 +40,16 @@ const productSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    eceofriendly: {
+      type: Boolean, 
+      default:0,
+    }
   },
   {
     timestamps: true,
   }
 );
+
 productSchema.index({ name: 'text', description: 'text' });
 
 const Product = mongoose.model('Product', productSchema);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
 import CategoryNavbar from './CategoryNavbar';
-import Header from './Header';
+//import Header from './Header';
 import Footer from './Footer';
 import SearchBar from './SearchBar';
 import { Carousel } from 'react-responsive-carousel';
@@ -33,7 +33,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <div className="w-full h-full">
         <Carousel showThumbs={false} autoPlay infiniteLoop>
           <div>
@@ -48,7 +47,6 @@ const Home = () => {
         </Carousel>
         <div className="w-full p-4">
           <CategoryNavbar onCategorySelect={setSelectedCategory} />
-          <SearchBar onSearchResults={handleSearchResults} />
           <h1 className="text-3xl font-bold mb-4">Products</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {products.map(product => (
