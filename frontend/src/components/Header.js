@@ -10,7 +10,7 @@ const Header = ({ onSearchResults }) => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/search', {
+      const response = await axios.get('https://e-commerce-platform-1-sxej.onrender.com/api/products/search', {
         params: { query },
       });
       onSearchResults(response.data); // Pass results to App.js

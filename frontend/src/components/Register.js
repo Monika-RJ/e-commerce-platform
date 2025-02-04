@@ -11,7 +11,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/users/register', { name, email, password });
+      await axios.post('https://e-commerce-platform-1-sxej.onrender.com/api/users/register', { name, email, password });
       window.location.href = '/login'; // Redirect to login page on successful registration
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed'); // Display server error message if available
@@ -19,7 +19,7 @@ const Register = () => {
   };
 
   const handleSocialAuth = (provider) => {
-    window.location.href = `http://localhost:5000/api/auth/${provider}`; // Redirect to social auth provider
+    window.location.href = `https://e-commerce-platform-1-sxej.onrender.com/api/auth/${provider}`; // Redirect to social auth provider
   };
 
   return (

@@ -96,10 +96,10 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const response = await axios.get(`https://e-commerce-platform-1-sxej.onrender.com/api/products/${id}`);
         setProduct(response.data);
 
-        const relatedResponse = await axios.get(`http://localhost:5000/api/products/category/${response.data.category}`);
+        const relatedResponse = await axios.get(`https://e-commerce-platform-1-sxej.onrender.com/api/products/category/${response.data.category}`);
         setRelatedProducts(relatedResponse.data.filter(item => item._id !== id));
       } catch (error) {
         console.error('Error fetching product:', error);
