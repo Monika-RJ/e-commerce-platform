@@ -16,7 +16,7 @@ const Home = () => {
       try {
         const endpoint = selectedCategory === 'All'
           ? 'https://e-commerce-platform-1-sxej.onrender.com/api/products'
-          : `https://e-commerce-platform-1-sxej.onrender.com/${selectedCategory}`;
+          : `https://e-commerce-platform-1-sxej.onrender.com/api/products/category/${selectedCategory}`;
         const response = await axios.get(endpoint);
         setProducts(response.data);
       } catch (error) {
