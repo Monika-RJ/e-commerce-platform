@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json()); // Parses incoming JSON requests
 app.use(cookieParser());
 app.use(cors({ 
-  origin: 'https://e-commerce-platform-2-h1uj.onrender.com', // Replace with your frontend domain
+  origin: 'http://localhost:3000', // Replace with your frontend domain
   credentials: true // Allows cookies to be sent cross-origin
 }));
 
