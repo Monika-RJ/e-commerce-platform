@@ -17,9 +17,12 @@ const allowedOrigins = [
   "https://e-commerce-platform-fe.onrender.com/" // Replace with your actual frontend URL
 ];
 
+
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true // If using cookies or authentication
+  credentials: true, // Allow cookies if needed
+  methods: ["GET", "POST", "PUT", "DELETE"],  // Allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
 }));
 
 
