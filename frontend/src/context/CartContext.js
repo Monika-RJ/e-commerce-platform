@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   const fetchCartItems = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('http://localhost:5000/api/cart', {
+      const res = await axios.get('https://e-commerce-platform-1-sxej.onrender.com/api/cart', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems(res.data.cartItems);
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/cart',
+        'https://e-commerce-platform-1-sxej.onrender.com/api/cart',
         { productId, quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
