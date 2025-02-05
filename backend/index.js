@@ -11,10 +11,17 @@ const app = express();
 // Middleware
 app.use(express.json()); // Parses incoming JSON requests
 app.use(cookieParser());
-app.use(cors({ 
-  origin: 'http://localhost:3000', // Replace with your frontend domain
-  credentials: true // Allows cookies to be sent cross-origin
+
+const allowedOrigins = [
+  "http://localhost:3000", // For local development
+  "https://e-commerce-platform-fe.onrender.com/" // Replace with your actual frontend URL
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true // If using cookies or authentication
 }));
+
 
 // Import and use user routes
 const userRoutes = require('./routes/userRoutes');
