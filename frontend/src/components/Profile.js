@@ -61,7 +61,9 @@ const Profile = () => {
       console.log(token);
       try {
         // Send request to backend to fetch profile with token in headers
-        const response = await axios.get('https://e-commerce-platform-1-sxej.onrender.com/api/users/profile', {
+
+
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data); // Set user data if successful

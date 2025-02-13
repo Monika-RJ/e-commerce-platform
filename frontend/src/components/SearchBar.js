@@ -10,7 +10,7 @@ const Header = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get('https://e-commerce-platform-1-sxej.onrender.com/api/products/search', {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/search`, {
         params: { query },
       });
       // Handle search results (e.g., display them on the page or pass to a parent component)

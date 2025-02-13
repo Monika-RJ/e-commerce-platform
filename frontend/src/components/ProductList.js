@@ -1,4 +1,3 @@
-
 // src/components/ProductList.js
 
 import React, { useState, useEffect } from 'react';
@@ -20,8 +19,8 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const endpoint = selectedCategory === 'All'
-          ? 'https://e-commerce-platform-1-sxej.onrender.com/api/products'
-          : `https://e-commerce-platform-1-sxej.onrender.com/api/products/category/${selectedCategory}`;
+          ? `${process.env.REACT_APP_API_BASE_URL}/products`
+          : `${process.env.REACT_APP_API_BASE_URL}/products/category/${selectedCategory}`;
         const response = await axios.get(endpoint);
         setProducts(response.data);
       } catch (error) {
@@ -38,11 +37,12 @@ const ProductList = () => {
 
   return (
     <>
-    
-    <Header className={styles.header}/>
-    <div className={styles.container}>
-
-      <Carousel showThumbs={false} autoPlay infiniteLoop>
+      <Header className={styles.header}/>
+      <div className={styles.container}>
+        <Carousel showThumbs={false} autoPlay infiniteLoop>
+          <div>
+            <img src="https://media-uk-india-banners.landmarkshops.in/Home-Centre/HC-Desktop-2-Offer-060917.jpg" alt="Slide 1" />
+          </div>
           <div>
             <img src="https://media-uk-india-banners.landmarkshops.in/Home-Centre/HC-Desktop-2-Offer-060917.jpg" alt="Slide 1" />
 

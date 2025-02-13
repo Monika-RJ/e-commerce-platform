@@ -1,7 +1,8 @@
 // src/components/Login.js
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import styles from './Login.module.css';
 
 const Login = () => {
@@ -21,6 +22,23 @@ const Login = () => {
     }
   };
 
+  const checkEmail = async () => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/check-email`, { email });
+      if (!response.data.exists) {
+        setError('Email not registered. Redirecting to register page...');
+        setTimeout(() => {
+          navigate('/register');
+        }, 2000); // Redirect to register page after 2 seconds
+      } else {
+        setError('');
+      }
+    } catch (err) {
+      console.error('Error checking email:', err);
+      setError('Error checking email');
+    }
+  };
+
   return (
     <div className={styles['login-body']}>
       <div className={styles['login-container']}>
@@ -33,6 +51,7 @@ const Login = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onBlur={checkEmail} // Add onBlur event to check email
             className={styles['login-input']}
             required
           />
@@ -46,6 +65,10 @@ const Login = () => {
             required
           />
           <button type="submit" className={styles['login-button']}>Login</button>
+
+          <p className={styles['register-link']}>
+            Don't have an account? <Link to="/register">Register</Link>
+          </p>
         </form>
       </div>
     </div>

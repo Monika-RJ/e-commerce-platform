@@ -86,4 +86,20 @@ router.post('/register', asyncHandler(async (req, res) => {
   }
 }));
 
+
+// @route   POST /api/users/check-email
+// @desc    Check if email is already registered
+// @access  Public
+router.post('/check-email', asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user) {
+    res.json({ exists: true });
+  } else {
+    res.json({ exists: false });
+  }
+}));
+
 module.exports = router;

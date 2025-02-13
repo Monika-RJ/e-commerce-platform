@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   const fetchCartItems = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('https://e-commerce-platform-1-sxej.onrender.com/api/cart', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems(res.data.cartItems);
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     try {
       const res = await axios.post(
-        'https://e-commerce-platform-1-sxej.onrender.com/api/cart',
+        `${process.env.REACT_APP_API_BASE_URL}/cart`,
         { productId, quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -38,7 +38,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = async (productId) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`https://e-commerce-platform-1-sxej.onrender.com/api/cart/${productId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchCartItems();

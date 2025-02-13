@@ -1,7 +1,7 @@
 // src/context/AuthContext.js
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode'; // Install jwt-decode: npm install jwt-decode
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post('https://e-commerce-platform-1-sxej.onrender.com/api/users/login', { email, password });
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/login`, { email, password });
       
       // Check if token exists in the response
       if (res.data && res.data.token) {

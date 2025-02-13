@@ -4,7 +4,6 @@ import ProductCard from './ProductCard';
 import CategoryNavbar from './CategoryNavbar';
 //import Header from './Header';
 import Footer from './Footer';
-import SearchBar from './SearchBar';
 import { Carousel } from 'react-responsive-carousel';
 
 const Home = () => {
@@ -15,8 +14,8 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const endpoint = selectedCategory === 'All'
-          ? 'https://e-commerce-platform-1-sxej.onrender.com/api/products'
-          : `https://e-commerce-platform-1-sxej.onrender.com/api/products/category/${selectedCategory}`;
+          ? `${process.env.REACT_APP_API_BASE_URL}/products`
+          : `${process.env.REACT_APP_API_BASE_URL}/products/category/${selectedCategory}`;
         const response = await axios.get(endpoint);
         setProducts(response.data);
       } catch (error) {
@@ -27,9 +26,6 @@ const Home = () => {
     fetchProducts();
   }, [selectedCategory]);
 
-  const handleSearchResults = (results) => {
-    setProducts(results);
-  };
 
   return (
     <>

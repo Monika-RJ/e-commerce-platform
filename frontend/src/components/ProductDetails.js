@@ -1,85 +1,3 @@
-/*/ src/components/ProductDetails.js
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import axios from 'axios';
-
-const ProductDetails = () => {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const { addToCart } = useCart();
-  const navigate = useNavigate();  // For navigating to the cart page
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/products/${id}`);
-        setProduct(response.data);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
-
-  if (!product) return <div>Loading...</div>;
-
-  const handleAddToCart = () => {
-    // Fetch token from localStorage
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      alert('Please log in to add items to your cart.');
-      navigate('/login');
-      return;
-    }
-  }
-  const handleAddToFavorites = () => {
-    alert('Added to Favorites');
-  };
-
-  const handleBuyNow = () => {
-    alert('Proceeding to Checkout');
-    navigate("/payment");  // Assuming you have a checkout route
-  };
-
-  return (
-    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="md:w-1/2">
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="w-full h-full object-cover rounded-lg shadow-md"
-          />
-        </div>
-        <div className="md:w-1/2 flex flex-col justify-between">
-          <div>
-            <h1 className="text-3xl font-semibold text-gray-800 mb-4">{product.name}</h1>
-            <p className="text-gray-600 mb-6">{product.description}</p>
-            <h2 className="text-2xl font-bold text-blue-600 mb-4">Rs.{product.price.toFixed(2)}</h2>
-          </div>
-          <div className="flex flex-col gap-4 mt-6">
-            
-            
-            <button
-              onClick={handleBuyNow}
-              className="w-full bg-green-500 text-white py-2 rounded-lg shadow-md hover:bg-green-600 transition"
-            >
-              Buy Now
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ProductDetails;
-
-*/
-
 // src/components/ProductDetails.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -96,10 +14,10 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`https://e-commerce-platform-1-sxej.onrender.com/api/products/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/${id}`);
         setProduct(response.data);
 
-        const relatedResponse = await axios.get(`https://e-commerce-platform-1-sxej.onrender.com/api/products/category/${response.data.category}`);
+        const relatedResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/category/${response.data.category}`);
         setRelatedProducts(relatedResponse.data.filter(item => item._id !== id));
       } catch (error) {
         console.error('Error fetching product:', error);
