@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:3000", // For local development
-  "https://e-commerce-website111.netlify.app/" // Replace with your actual frontend URL
+  "https://e-commerce-website111.netlify.app" // Replace with your actual frontend URL
 ];
 
 
@@ -33,7 +33,7 @@ app.use(cors({
 
 // Ensure CORS headers are applied globally
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://e-commerce-platform-fe.onrender.com");
+  res.header("Access-Control-Allow-Origin", "https://e-commerce-website111.netlify.app");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Credentials", "true");
