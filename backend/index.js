@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:3000", // For local development
-  "https://e-commerce-platform-fe.onrender.com" // Replace with your actual frontend URL
+  "https://e-commerce-website111.netlify.app/" // Replace with your actual frontend URL
 ];
 
 
