@@ -17,7 +17,7 @@ const allowedOrigins = [
   "https://e-commerce-website111.netlify.app" // Replace with your actual frontend URL
 ];
 
-
+// CORS Configuration
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -31,17 +31,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Ensure CORS headers are applied globally
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://e-commerce-website111.netlify.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-
-
-
 // Import and use user routes
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
@@ -54,6 +43,7 @@ app.use('/api/products', productRoutes);
 const cartRoutes = require('./routes/CartRoutes');
 app.use('/api/cart', cartRoutes);
 
+// Import and use profile routes
 const profRoutes = require('./routes/userRoutes');
 app.use('/api/users/profile', profRoutes);
 
