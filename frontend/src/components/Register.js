@@ -12,7 +12,7 @@ const Register = () => {
     e.preventDefault();
     try {
 
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/register`, { name, email, password });
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/register`, { name, email, password });
       window.location.href = '/login'; // Redirect to login page on successful registration
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed'); // Display server error message if available
